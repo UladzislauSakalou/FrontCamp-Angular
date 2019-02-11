@@ -1,0 +1,22 @@
+<!-- <app-dashboard-header [selectedSource]="selectedSource"></app-dashboard-header> -->
+<div class="dashboard-header">
+  <div class="source-title">{{selectedSource?.name}}</div>
+  <div>
+    <select [(ngModel)]="selectedSource" (ngModelChange)="onSourceChange($event)">
+      <option *ngFor="let source of sources" [ngValue]="source">{{source.name}}</option>
+    </select>
+    <input type="text">
+    <input type="checkbox">
+    <label>Only created by me</label>
+    <button>Filter</button>
+    <button (click)="onAddArticleClick()">Add article</button>
+  </div>
+</div>
+<div>
+
+</div>
+<ul>
+  <li *ngFor="let article of articles">
+    <app-article [article]="article" (articleSelected)="onArticleSelected($event)"></app-article>
+  </li>
+</ul>
