@@ -3,36 +3,37 @@ import { ArticleService, SourceService, ArticleDetailsResolverService } from '..
 import { Article, Source } from '../models';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { CONFIG } from '../core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
-  // private router = Router;
   public articles: Article[] = [];
   public sources: Source[] = [];
   public isLocalSource: boolean = false;
   public selectedSource: Source = null;
+  public onlyCreatedByMe: Boolean = false;
+  public showLoadMoreButton: Boolean = false;
+  public filterargs = '';
+  public filterInput = '';
 
   constructor(
-    private articleService: ArticleService, 
-    private sourceService: SourceService, 
+    private articleService: ArticleService,
+    private sourceService: SourceService,
     private articleDetailsResolverService: ArticleDetailsResolverService,
     private route: ActivatedRoute,
-    private router: Router 
-    ) { }
-
-  public getArticles(sourceId) {
-    this.articles = [];
-    this.articles = this.articleService.getArticles(sourceId);
-  }
+    private router: Router
+  ) { }
 
   public getSources() {
-    this.sources = [];
-    this.sources = this.sourceService.getSources();
+    this.sourceService.getSources()
+      .subscribe(data => {
+        this.sources = data.sources;
+      })
   }
 
   ngOnInit() {
@@ -40,18 +41,56 @@ export class DashboardComponent implements OnInit {
   }
 
   public onSourceChange(newSource) {
+    this.selectedSource = newSource;
+    this.articleDetailsResolverService.setSelectedSource(this.selectedSource);
     if (newSource) {
-      this.getArticles(newSource.id);
+      this.getArticles(CONFIG.baseSettings.pageSize);
     }
-  }
-
-  public onArticleSelected(event: Article) {
-    this.articleDetailsResolverService.setSelectedArticle(event);
-    this.router.navigate(['article-details']);
   }
 
   public onAddArticleClick() {
     this.router.navigate(['article-details/add']);
   }
 
+  public onOnlyCreatedByMeClick() {
+    this.onlyCreatedByMe = !this.onlyCreatedByMe;
+
+    if (this.onlyCreatedByMe) {
+      this.selectedSource = this.sourceService.getLocalSource();
+      this.articleService.getLocalArticles()
+      .subscribe(data => {
+        this.articles = data;
+      });
+    } else {
+      this.selectedSource = null;
+      this.articles = [];
+      this.showLoadMoreButton = false;
+    }
+
+    this.articleDetailsResolverService.setSelectedSource(this.selectedSource);
+  }
+
+  public onShowMoreButtonClick() {
+    this.getArticles(this.articles.length + CONFIG.baseSettings.pageSize);
+  }
+
+  public onArticleDeleted($event) {
+    this.articleService.getLocalArticles()
+      .subscribe(data => {
+        this.articles = data;
+      });
+  }
+
+  public onFilterButtonClick() {
+
+    this.filterargs = this.filterInput;
+  }
+
+  private getArticles(pageSize: number) {
+    this.articleService.getArticles(this.selectedSource.id, pageSize)
+      .subscribe(data => {
+        this.articles = data.articles;
+        this.showLoadMoreButton = data.totalResults > this.articles.length ? true : false;
+      });
+  }
 }

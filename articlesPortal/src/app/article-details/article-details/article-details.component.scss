@@ -1,0 +1,36 @@
+button {
+    float: right;
+    margin-right: 15px;
+    margin-top: 67px;
+}
+
+img {
+    height: 120px;
+    width: 200px;
+    float: left;
+    margin-top: 32px;
+}
+
+.container {
+    min-height: 160px;
+    margin-left: 40px;
+    border-bottom: 1px gray solid;
+}
+
+.article-description {
+    width: 200 px;
+    margin-left: 250px;
+    margin-right: 200px;
+    vertical-align: top;
+}
+
+.title {
+    font-size: 19px;
+    font-weight: 500;
+    padding-top: 8px;
+}
+
+a:hover {
+    color: #1976d2;
+    cursor: pointer;
+}

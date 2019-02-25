@@ -1,3 +1,28 @@
-<p>
-    add-edit-article works!
-</p>
+<div class="title-header">{{method}}</div>
+<div class="form-container">
+    <form [formGroup]="articleForm">
+
+        <label>
+            Title:
+            <input type="text" formControlName="title">
+        </label>
+
+        <label>
+            url to image:
+            <input type="text" formControlName="urlToImage">
+        </label>
+
+        <label>
+            Content:
+            <textarea rows="10" cols="60" formControlName="content" id="content-input">
+
+         </textarea>
+        </label>
+
+        <div *ngIf="articleForm.status == 'INVALID'" class="error">
+            {{articleFormErrorMessage}}
+        </div>
+
+        <button (click)="onSaveClick()" [disabled]="!articleForm.valid">Save</button>
+    </form>
+</div>

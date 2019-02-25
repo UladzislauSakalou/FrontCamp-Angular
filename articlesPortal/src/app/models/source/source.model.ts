@@ -1,6 +1,5 @@
 export class Source {
-    id: number;
+    id: string;
     name: string;
-    side: string;
   }
   

@@ -1,22 +1,21 @@
-<!-- <app-dashboard-header [selectedSource]="selectedSource"></app-dashboard-header> -->
-<div class="dashboard-header">
-  <div class="source-title">{{selectedSource?.name}}</div>
-  <div>
-    <select [(ngModel)]="selectedSource" (ngModelChange)="onSourceChange($event)">
-      <option *ngFor="let source of sources" [ngValue]="source">{{source.name}}</option>
-    </select>
-    <input type="text">
-    <input type="checkbox">
-    <label>Only created by me</label>
-    <button>Filter</button>
-    <button (click)="onAddArticleClick()">Add article</button>
-  </div>
-</div>
-<div>
+<app-dashboard-header [selectedSource]="selectedSource"></app-dashboard-header>
+<div class="dashboard-subheader">
+  <select [ngModel]="selectedSource" (ngModelChange)="onSourceChange($event)" [disabled]="onlyCreatedByMe">
+    <option [ngValue]="null" disabled selected>Select source</option>
+    <option *ngFor="let source of sources" [ngValue]="source">{{source.name}}</option>
+  </select>
+  <input id="filter-input" type="text" [(ngModel)]="filterInput">
+  <button id="filter-button" (click)="onFilterButtonClick()">Filter</button>
+  <label class="checkbox-container">Only created by me
+    <input type="checkbox" [checked]="onlyCreatedByMe" (change)="onOnlyCreatedByMeClick()">
+    <span class="checkmark"></span>
+  </label>
 
+  <button id="add-article-button" (click)="onAddArticleClick()">Add article</button>
 </div>
-<ul>
-  <li *ngFor="let article of articles">
-    <app-article [article]="article" (articleSelected)="onArticleSelected($event)"></app-article>
-  </li>
-</ul>
+  <div *ngFor="let article of articles | wordFilter:filterargs">
+    <app-article [article]="article" (articleDeleted)="onArticleDeleted($event)"></app-article>
+  </div>
+  <div *ngIf="showLoadMoreButton" class="show-more-button-container">
+      <button id="show-more-button" (click)="onShowMoreButtonClick()">Show more</button>
+  </div>

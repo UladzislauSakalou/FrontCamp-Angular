@@ -1,22 +1,7 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-Articles Portal 
+<div id="title-header">
+{{title}}
 </div>
-<!-- <ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="ng">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul> -->
-<!-- <select [(ngModel)]="selectedSource">
-  <option *ngFor="let source of sources" [ngValue]="source">{{source.name}}</option>
-</select> --> 
-
-<router-outlet></router-outlet>
-
-<footer>Footer</footer>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+<footer>{{newsAPIMention}}</footer>

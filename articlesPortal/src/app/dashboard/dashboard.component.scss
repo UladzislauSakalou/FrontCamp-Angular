@@ -1,0 +1,54 @@
+.dashboard-subheader {
+  padding: 5px;
+  border-bottom: 2px solid #555555;
+  border-top: 2px solid #555555;
+  background-color: #fffffd;
+}
+
+.dashboard-subheader select {
+    color: black;
+    text-align: center;
+    padding: 3px;
+    text-decoration: none;
+    font-size: 13px; 
+    line-height: 15px;
+    border-radius: 6px;
+    margin-left: 10px;
+    margin-right: 90px;
+    width: 115px;
+  }
+
+  .dashboard-subheader select:disabled {
+    background-color: grey;
+  }
+
+  #filter-input {
+    font-size: 13px; 
+    line-height: 17px;
+    border-radius: 5px;
+    border-color: #cfcece;
+    width: 120px;
+    margin-right: 10px;
+  }
+
+  #add-article-button {
+    float: right;
+    margin-right: 20px; 
+  }
+
+  #filter-button {
+    margin-right: 90px;
+  }
+  
+  #show-more-button {
+    width: 230px;
+    line-height: 23px;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .show-more-button-container {
+    text-align: center;
+    padding: 5px;
+  }
+  

@@ -6,23 +6,19 @@ import { AppComponent } from './app.component';
 import { ArticleService } from './models';
 import { SourceService } from './models';
 import { FormsModule } from '@angular/forms';
-// import { ReactiveFormsModule }          from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    // MatButtonModule, 
-    // MatCheckboxModule,
-    // MaterialModule,
     FormsModule,
-    // MatCommonModule,
+    HttpClientModule,
     BrowserModule,
-    // ReactiveFormsModule,
-    AppRoutingModule,
-    // MatSelectModule,
-    // BrowserAnimationsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [ArticleService, SourceService],
   bootstrap: [AppComponent]

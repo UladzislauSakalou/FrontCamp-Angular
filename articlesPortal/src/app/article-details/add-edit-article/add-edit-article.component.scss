@@ -1,0 +1,23 @@
+@import "../../../variables.scss"; 
+
+  .form-container {
+    padding-left: 40px;
+  }
+
+  label {
+    display: block;
+    width: 6em;
+    margin: .5em 0;
+    color: $mainColour;
+    font-weight: bold;
+  }
+  
+  input {
+    height: 25px;
+    font-size: 20px;
+    padding-left: 4px;
+  }
+
+  #content-input {
+    height: 130px;
+  }

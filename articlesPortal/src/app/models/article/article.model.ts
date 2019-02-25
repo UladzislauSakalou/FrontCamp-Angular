@@ -1,6 +1,7 @@
 export class Article {
-    id: number;
-    name: string;
+    _id: string;
     title: string;
+    urlToImage: string;
+    content: string; 
   }
   

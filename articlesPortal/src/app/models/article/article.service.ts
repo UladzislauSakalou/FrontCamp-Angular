@@ -1,33 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Article } from './article.model';
+import { ArticleInformation } from './articles-information.model';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { CONFIG } from '../../core';
 
 @Injectable()
 export class ArticleService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  public getArticles(sourceId: number): Article[] {
-    let result: Article[] = [];
+  public getArticles(sourceId: string, pageSize: number): Observable<ArticleInformation> {
+    const headers: HttpHeaders = new HttpHeaders({'X-Api-Key': CONFIG.baseSettings.apiKey});
+    return this.http.get<ArticleInformation>(this.getLinkForNEWSAPIArticles(sourceId, pageSize), {headers: headers});
+  }
 
-    let a: Article = new Article();
-    a.name = `Article 1 from Source ${sourceId}`;
+  public getLocalArticles(): Observable<Article[]> {
+    return this.http.get<Article[]>(CONFIG.localSourceSettings.url);
+  }
 
-    let b: Article = new Article();
-    b.name = `Article 1 from Source ${sourceId}`;
+  public deleteLocalArticle(article: Article) {
+    return this.http.delete(CONFIG.localSourceSettings.url + article._id)
+  }
 
-    result.push(a);
-    result.push(b);
+  public updateLocalArticle(article: Article) {
+    return this.http.put(CONFIG.localSourceSettings.url + article._id, {title: article.title, urlToImage: article.urlToImage, content: article.content});
+  }
 
-    return result;
-    
-    // this.spinnerService.show();
-    // return <Observable<Character[]>>this.http
-    //   .get(charactersUrl)
-    //   .map(res => {
-    //     const x = this.extractData<Character[]>(res);
-    //     return this.extractData<Character[]>(res);
-    //   })
-    //   .catch(this.exceptionService.catchBadResponse)
-    //   .finally(() => this.spinnerService.hide());
+  public createLocalArticle(article: Article) {
+    return this.http.post(CONFIG.localSourceSettings.url, {title: article.title, urlToImage: article.urlToImage, content: article.content});
+  }
+
+  private getLinkForNEWSAPIArticles(sourceId: string, pageSize: number): string {
+    return `${CONFIG.newsAPIUrls.articles}pageSize=${pageSize}&sources=${sourceId}`;
   }
 }

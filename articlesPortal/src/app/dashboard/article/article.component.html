@@ -1,6 +1,14 @@
-<div>
-  {{article.name}}
-  <a (click)="onReadMoreClick()">Read more</a>
-  <button>Edit</button>
-  <button>Delete</button>
+<div class="container">
+  <img src="{{article?.urlToImage}}" alt="">
+  <button *ngIf="localSourceSelected()" (click)="onEditButtonClick()">Edit</button>
+  <button *ngIf="localSourceSelected()" (click)="onDeleteButtonClick()">Delete</button>
+  <div class="article-description">
+      <div class="title">{{article?.title}}</div>
+      <p>
+        {{article?.content}}
+      </p>
+      <a (click)="onReadMoreClick()">Read more</a>
+  </div>
+  
+  
 </div>

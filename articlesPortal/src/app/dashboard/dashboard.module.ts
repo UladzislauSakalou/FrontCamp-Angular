@@ -5,8 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 import { ArticleComponent } from './article/article.component';
 import { FormsModule } from '@angular/forms';
-// import { MatSelectModule } from '@angular/material/select';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [DashboardComponent, DashboardHeaderComponent, ArticleComponent],
@@ -14,8 +13,7 @@ import { FormsModule } from '@angular/forms';
     DashboardRoutingModule,
     CommonModule,
     FormsModule,
-    // MatSelectModule,
-    // BrowserAnimationsModule
+    SharedModule
   ]
 })
 export class DashboardModule { }
